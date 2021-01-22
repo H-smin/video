@@ -1,7 +1,8 @@
 import React from 'react'
 import './direct-content.css'
 import PropTypes from 'prop-types'
-
+import Swiper from 'swiper';
+import 'swiper/swiper-bundle.css'
 
 export default class DirectContent extends React.Component {
   static defaultProps = {
@@ -15,6 +16,27 @@ export default class DirectContent extends React.Component {
     studyStatus: '',
     videoTime: ''
   }
+  componentDidMount() {
+    new Swiper('.swiper-container', {
+      initialSlide: 0,
+      direction: 'horizontal',
+      grabCursor: true,
+      observer:true, 
+      observeParents:true,
+      slidesPerView : 'auto',
+      SwiperOptionslidesPerView : 3, 
+    })
+
+  }
+  getEveryPageArr = (directData = [], size) => {
+    let newArr = []
+    for (let i = 0; i < directData.length; i += size) {
+      newArr.push(directData.slice(i, i + size))
+    }
+    console.log(newArr)
+    return newArr
+  }
+
   renderSubLive = (partNum, liveTime, playNum, studyProgress, studyStatus) => {
     let emptyArr = []
     if (!!partNum) {
@@ -35,14 +57,7 @@ export default class DirectContent extends React.Component {
     return emptyArr
 
   }
-  getEveryPageArr = (directData = [], size) => {
-    let newArr = []
-    for (let i = 0; i < directData.length; i += size) {
-      newArr.push(directData.slice(i, i + size))
-    }
-    console.log(newArr)
-    return newArr
-  }
+
   judgeIsMember = (isMember, attribute) => {
     if (attribute < 4) {
       return (attribute === 1 ? <div className='live attr-common '></div>
@@ -52,40 +67,43 @@ export default class DirectContent extends React.Component {
       return <div className='studied attr-common '></div>
     }
   }
+
   render() {
     const { directData = [] } = this.props
     return (
       <div className='DirectContent'>
-        <div className='swiper-container'>
-          {
-            this.getEveryPageArr(directData, 5).map((item, index) => {
-              return (
-                <div className='content-container-box' key={index}>{
-                  item.map((data, innerindex) => {
-                    const { attribute, sectionTitle, teacherName, partNum, liveTime, playNum, studyProgress, studyStatus, videoTime, isMember } = data
-                    return (
-                      <div key={innerindex} className='content-container'>
-                        <div className='lesson-attr-container'>
-                          {this.judgeIsMember(isMember, attribute)}
-                          {!!videoTime ? <div className='video-time'>{videoTime}</div> : ''}
-                          <div className='section-title'>{innerindex + index * 5 + 1}.{sectionTitle}</div>
-                        </div>
-                        <div className='lesson-info-container'>
-                          <div className='teacher-name'>{teacherName}</div>
-                          {this.renderSubLive(partNum, liveTime, playNum, studyProgress, studyStatus)}
-                        </div>
-                      </div>
+        <div className='swiper-container' >
+          <div className='swiper-wrapper'>
+            {
+              this.getEveryPageArr(directData, 5).map((item, index) => {
+                return (
 
-                    )
-
-                  })
-                }
-                </div>
-
-              )
-            })
-
-          }
+                  // <div className={'content-container-box'} key={index}>
+                    <div className='swiper-slide content-container-box'>
+                      {
+                        item.map((data, innerindex) => {
+                          const { attribute, sectionTitle, teacherName, partNum, liveTime, playNum, studyProgress, studyStatus, videoTime, isMember } = data
+                          return (
+                            <div key={innerindex} className='content-container'>
+                              <div className='lesson-attr-container'>
+                                {this.judgeIsMember(isMember, attribute)}
+                                {!!videoTime ? <div className='video-time'>{videoTime}</div> : ''}
+                                <div className='section-title'>{innerindex + index * 5 + 1}.{sectionTitle}</div>
+                              </div>
+                              <div className='lesson-info-container'>
+                                <div className='teacher-name'>{teacherName}</div>
+                                {this.renderSubLive(partNum, liveTime, playNum, studyProgress, studyStatus)}
+                              </div>
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
+                  // </div>
+                )
+              })
+            }
+            </div>
         </div>
       </div>
     )

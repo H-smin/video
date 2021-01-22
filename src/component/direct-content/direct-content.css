@@ -1,14 +1,11 @@
 .DirectContent {
   margin:26px 26px 0 0;
   padding-top: 20px;
-  display: flex;
-  width: 331px;
-  overflow: hidden;
 }
-.DirectContent::before {
+.content-container-box::before {
   content: '';
   float: left;
-  margin: -34px 0 0 35px;
+  margin: -40px 0 0 35px;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
@@ -16,18 +13,24 @@
   border-bottom: 14px solid rgba(28, 37, 50, 0.45);
 }
 .swiper-container {
-  width: 10000%;
   display: flex;
-  margin-left: -54px;
   margin-top: -20px;
-  animation: left 0.2s ease-in-out;
+  margin-left: -5px !important;
+  overflow: unset !important;
 }
 .content-container-box {
-  width: 331px;
   padding-top: 26px;
-  margin-right: 12px;
+  /* margin-right: 12px; */
   border-radius: 10px;
   background: linear-gradient(97deg, rgba(28, 37, 50, 0.45) 0%, rgba(28, 37, 50, 0.7) 100%);
+}
+.swiper-slide {
+  width: 331px !important;
+  height: 315px !important;
+  flex-shrink: 0;
+  margin: 0 6px;
+  position: relative;
+  transition-property: transform;
 }
 .content-container {
   height: 62px;
@@ -39,7 +42,7 @@
 .attr-common {
   float: left;
   width: 28px;
-  margin:3px 5px 0 10px;
+  margin:3px 5px 0 13px;
   text-align: center;
 }
 .lesson-attr-container {
@@ -73,7 +76,7 @@
 }
 .video-time {
   float: right;
-  margin-right: 10px;
+  margin-right: 20px;
   font-size: 12px; 
   color: rgba(255, 255, 255, 0.6);
   line-height: 17px;

@@ -4,7 +4,10 @@ import Video from './component/video/video'
 import LessonIntro from './component/lesson-intro/lessonintro'
 import Tab from './component/tab/tab'
 import DirectContent from './component/direct-content/direct-content'
+import SwiperPra from './component/swiper/swiper'
+import Teacher from './component/teacher/Teacher'
 import active from './img/slices/试听@2x.png'
+import teacherImg from './img/timg.jpeg'
 
 function App() {
   const lessonData = {
@@ -135,6 +138,14 @@ function App() {
       isMeber:false
     }
   ]
+  const teacherInfo={
+    headImf:'teacherImg',
+    teacherNickName:'七七老师',
+    focusNUm:'1.2万',
+    isFocus:true,
+    teacherIntro:'华盖创意签约摄影师，豆瓣、网易签约作者，合作杂志《人像摄影》、《咔啪》、《摄影之友》',
+    belongOrg:'七七老师'
+  }
   return (
     <div className="App">
       <Video />
@@ -143,6 +154,8 @@ function App() {
           <LessonIntro data={lessonData} />
           <Tab />
           <DirectContent directData={directData} />
+          <Teacher teacher={teacherInfo}/>
+
         </div>
       </div>
     </div>
